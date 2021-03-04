@@ -13,7 +13,7 @@ I will add it when I get a chance.
 
 ######################################
 
-1.  Clone into directory
+1.  Clone into directory:
 git clone https://github.com/Vampirebat/KivyMD_Threaded_Drawer_Login_Template
 
 2.  Go into directory
