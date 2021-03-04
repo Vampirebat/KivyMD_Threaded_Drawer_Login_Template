@@ -23,7 +23,7 @@ import threading
 
 class LoginScreen(Screen):
     response= StringProperty()
-    Tries = 3
+    Tries = 5
     def __init__(self, **kwargs):
         super(LoginScreen, self).__init__(**kwargs)
     
@@ -36,22 +36,22 @@ class LoginScreen(Screen):
                 MainApp.Change_Screen(self.parent,screenname='HomeScreen')
             elif  len(user) == 0 and len(password) == 0:
                 self.response = 'Please enter an ID and Password'
-                MainApp.Error(self=self.parent,Message='Please enter an ID and Password')
+                #MainApp.Error(self=self.parent,Message='Please enter an ID and Password')# uncomment if you want snackbars
                 self.Tries -=1
                 #MainApp.Change_Screen(self.parent,screenname='HomeScreen') ## use this if you just want to login with no password
             elif len(user) == 0 and len(password) > 0:
                 self.response = 'Please enter an ID'
-                MainApp.Error(self=self.parent,Message='Please enter an ID')
+                #MainApp.Error(self=self.parent,Message='Please enter an ID')# uncomment if you want snackbars
                 self.Tries -=1
                 
             elif len(password) == 0 and len(user) > 0:
                 self.response = 'Please enter a password'
-                MainApp.Error(self=self.parent,Message='Please Enter Password')
+                #MainApp.Error(self=self.parent,Message='Please Enter Password')# uncomment if you want snackbars
                 self.Tries -=1
                 
             else:
                 self.response = 'Please try again'
-                Snackbar(text="Please try again",snackbar_x="10",snackbar_y="10",size_hint_x=1,).open()
+                #MainApp.Error(self=self.parent,Message='Please try again') # uncomment if you want snackbars
                 self.Tries -=1
                 
         else:
