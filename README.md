@@ -16,25 +16,25 @@ I will add it when I get a chance.
 1.  Clone into directory:
 git clone https://github.com/Vampirebat/KivyMD_Threaded_Drawer_Login_Template
 
-2.  Go into directory
+2.  Go into directory:
 cd KivyMD_Threaded_Drawer_Login_Template
 
-3.  Create conda env
+3.  Create conda env:
 conda create -n kivythread python==3.8
 
-4.  Activate Env
+4.  Activate Env:
 conda activate kivythread
 
-5.  Install the requirements   Mines spelled wrong. I will change it later.
+5.  Install the requirements   Mines spelled wrong. I will change it later.:
 pip install -r requirnments.txt
 
-6.  Run the Program
+6.  Run the Program:
 python main.py
 
-7. Try to login
+7. Try to login:
 it wont let you login until you create a firebase database (unless you uncomment line 41)
 
-8.  Create your firebase
+8.  Create your firebase:
 https://firebase.google.com/
 add a record called Users
 create a username under Users
