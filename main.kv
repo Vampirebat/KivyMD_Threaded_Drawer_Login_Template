@@ -1,0 +1,253 @@
+#:import MDFillRoundFlatButton kivymd.uix.button.MDFillRoundFlatButton
+#:import MDCard kivymd.uix.card
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import StringProperty kivy.properties.StringProperty
+#:import threading threading
+
+Screen:
+
+    MDNavigationLayout:
+
+    WindowManager:
+        id:screen_manager
+        
+        LoginScreen:
+            name: 'LoginScreen'
+        HomeScreen:
+            name: 'HomeScreen'
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        swipe_edge_width: 20
+        elevation: 20 
+        enable_swiping:False
+        swipe_edge_width:20
+        
+        ContentNavigationDrawer:
+            
+
+
+<ContentNavigationDrawer>:
+    ScrollView:        
+        do_scroll_x: False
+        do_scroll_y: True
+        
+        MDBoxLayout:
+            adaptive_height: True
+            padding:10,10
+            spacing:10
+            cols:1
+            MDList:
+                Image:
+                    source:'images/logo.png'
+                    height: self.texture_size[1]
+                    size_hint_y: None
+                    keep_ratio: True
+                
+            
+                MDTextField:
+                    id: Search_Text_Field
+                    hint_text: "Search Our Store"
+                    mode: "rectangle"
+                    line_anim:True
+                    multiline:False 
+                    on_text_validate:
+                        self.parent.parent.parent.parent.set_state('close')
+                        app.Search(Search_Text_Field.text)
+                    
+                        
+                    
+                    
+                OneLineListItem:
+                    text: "[b]Home[/b]"
+                    markup: True
+                    on_press:
+                        self.parent.parent.parent.parent.Toggle_Nav_Drawer('close')
+                        app.Change_Screen('HomeScreen')
+
+                OneLineListItem:
+                    text: "[b]About US[/b]"
+                    markup: True
+                    on_press:
+                        self.parent.parent.parent.parent.set_state('close')
+                        app.Change_Screen('AboutUsScreen')
+                
+                        
+
+<HomeScreen>:
+    on_enter:threading.Thread(target=app.ToolBar(self)).start(),threading.Thread(target=self.Populate(Message='')).start(),threading.Thread(target=self.Release_Drawer()).start()
+    id:HomeScreen
+    name:'HomeScreen'
+    AnchorLayout:
+        id:toolbar
+        anchor_x: 'center'
+        anchor_y: 'top'
+    MDBoxLayout:
+        id:Box_Layout
+        orientation:'vertical'
+        cols:3
+        size_hint_y:.89
+        valign:'center'
+        MDCard:
+            id:Main_Layout
+            valign:'center'
+            halign:'center'
+            radius:(20, 20, 20, 20)
+            size_hint:1,.6
+            padding:20
+            spacing:20,20
+            orientation:'horizontal'
+            Button:
+                text:'test button RUN THREAD 1'
+                on_release: threading.Thread(target=root.ThreadOneExecute).start()
+            Button:
+                text:'Test Thread 2'
+                on_release: threading.Thread(target=root.ThreadTwoExecute).start()
+            Button:
+                text:'Stop Thread 2'
+                on_release: threading.Thread(target=root.Stop(self)).start()
+        
+        MDCard:
+            id:Main_Layout
+            valign:'center'
+            halign:'center'
+            radius:(20, 20, 20, 20)
+            size_hint:1,.3
+            padding:20
+            spacing:20,20
+            orientation:'horizontal'
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                
+                MDGridLayout:
+                    id:Grid_Layout
+                    adaptive_height: True
+                    padding:20,20
+                    spacing:20
+                    cols:1
+                    MDList:
+                        MDLabel:
+                            id:SCROLLER
+        
+                
+        MDBoxLayout:
+            orientation:'horizontal'
+            adaptive_height: True
+            padding:10,10
+            spacing:10
+            id:Bottom_Screen
+            MDLabel:
+                text:'Created By @SkainetRobotics'
+                halign:'center'
+            
+                
+            
+                    
+
+
+<LoginScreen>:
+    id:LoginScreen
+    MDBoxLayout:
+        id: login_layout
+        orientation: 'vertical'
+        padding: [20,20,20,20]
+        spacing: 10
+        
+        
+        canvas.before:
+            Rectangle:
+                pos: self.pos
+                size: self.size
+                source: 'images/vamp.png'
+
+      
+        Image:
+            source:'images/kivy.png'
+            size_hint_x:1
+            halign:'center'
+        
+        MDLabel:
+            size_hint_y:.49
+            text: '@SkainetRobotics'
+            font_style: 'H6'
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, .5
+
+            valign:'top'
+            halign:'center'
+        MDBoxLayout:
+            valign:'center'
+            halign:'center'
+            
+            radius:(20, 20, 20, 20)
+            size_hint:.5,None
+            pos_hint: {"center_x": .5, "center_y": .5}
+            padding:20
+            spacing:20,20
+            orientation:'vertical'
+            
+            MDTextField:
+                id:user
+                hint_text: "User Name or E-Mail or Phone Number"
+                helper_text_mode: "on_focus"
+                mode: "rectangle"
+
+            MDTextField:
+                id: password
+                hint_text: "Password"
+                helper_text_mode: "on_focus"
+                mode: "rectangle"
+                multiline:False
+                password:True
+            MDLabel:
+                halign:'center'
+                text:root.response
+                font_style:'Subtitle1'
+                theme_text_color: "Custom"
+                text_color: 9, 9, 9, 1 
+          
+        MDBoxLayout:
+            size_hint:.5,.4
+            pos_hint: {"center_x": .5, "center_y": .5}
+            spacing:20
+            MDFillRoundFlatButton:
+                size_hint_x:.1
+                text:'Login'
+                pos: self.pos
+                pos_hint:{'center_x': .5, 'center_y': .5}
+                on_press: root.Login(user.text, password.text)
+            MDFillRoundFlatButton:
+                size_hint_x:.1
+                text:'Register'
+                pos: self.pos
+                pos_hint:{'center_x': .09, 'center_y': .5}
+                on_press: root.Registration()
+            MDFillRoundFlatButton:
+                size_hint_x:.1
+                text:'Forgot'
+                pos: self.pos
+                pos_hint:{'center_x': .09, 'center_y': .5}
+                on_press: root.Forgot_Password()
+           
+          
+        MDBoxLayout:
+            size_hint:1,.3
+            pos_hint: {"center_x": .5, "center_y": .5}
+            spacing:20
+            Image:
+                source:'images/google.png'
+                halign:'center'
+            Image:
+                source:'images/fb.png'
+                halign:'center'
+            Image:
+                source: 'images/tw.png'
+                halign:'center'
+            Image:
+                source:'images/pinterest.png'
+                halign:'center'
+            Image:
+                source: 'images/reddit.png'
+                halign:'center'
+
